@@ -51,6 +51,8 @@ int main() {
   std::array<S, N> arr;
   init(arr);
 
+  std::cerr << "XXX sizeof(S) = " << sizeof(S) << "\n";
+
   auto expected = arr;
   solution(arr);
   std::sort(expected.begin(), expected.end());
