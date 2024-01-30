@@ -8,9 +8,9 @@ chmod +x llvm.sh
 update-alternatives --install /usr/bin/cc cc /usr/bin/clang-17 30
 update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-17 30
 
-# Check out the library.
+git clone https://github.com/andikleen/pmu-tools
 git clone https://github.com/google/benchmark.git
-# Go to the library root directory
+
 cd benchmark
 # Make a build directory to place the build output.
 cmake -E make_directory "build"
@@ -20,4 +20,4 @@ cmake --build "build" --config Release
 #if you want to install the library globally, also run:
 cmake --build "build" --config Release --target install
 
-echo XXXX user-data successfully executed
+echo user-data successfully executed
