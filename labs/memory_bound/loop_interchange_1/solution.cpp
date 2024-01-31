@@ -35,7 +35,7 @@ void transpose(Matrix& result, const Matrix& input) {
 void multiply(Matrix &result, const Matrix &a, const Matrix &b) {
   zero(result);
 
-  Matrix bT;
+  static Matrix bT;
   transpose(bT, b);
 
   for (int i = 0; i < N; i++) {
