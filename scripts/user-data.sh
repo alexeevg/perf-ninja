@@ -9,6 +9,7 @@ update-alternatives --install /usr/bin/cc cc /usr/bin/clang-17 30
 update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-17 30
 
 git clone https://github.com/andikleen/pmu-tools
+git clone https://github.com/alexeevg/perf-ninja.git
 git clone https://github.com/google/benchmark.git
 
 cd benchmark
@@ -20,6 +21,7 @@ cmake --build "build" --config Release
 #if you want to install the library globally, also run:
 cmake --build "build" --config Release --target install
 
-apt install python3-scipy -y 
+# check_speedup deps
+apt install ninja-build python3-scipy -y 
 
 echo user-data successfully executed

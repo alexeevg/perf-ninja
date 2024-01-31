@@ -22,37 +22,28 @@ void identity(Matrix &result) {
   }
 }
 
-#ifdef SOLUTION
-void transpose(Matrix& result, const Matrix& input) {
-  for (int i = 0; i < N; i++) {
-    for (int j = i; j < N; j++) {
-      result[i][j] = input[j][i];
-      result[j][i] = input[i][j];
-    }
-  }
-}
-#endif
 
 // Multiply two square matrices
 void multiply(Matrix &result, const Matrix &a, const Matrix &b) {
   zero(result);
 
 #ifdef SOLUTION
-  static Matrix bT;
-  transpose(bT, b);
-#endif
-
   for (int i = 0; i < N; i++) {
-    for (int j = 0; j < N; j++) {
-      for (int k = 0; k < N; k++) {
-#ifdef SOLUTION
-        result[i][j] += a[i][k] * bT[j][k];
-#else
+    for (int k = 0; k < N; k++) {
+      for (int j = 0; j < N; j++) {
         result[i][j] += a[i][k] * b[k][j];
-#endif
       }
     }
   }
+#else
+  for (int i = 0; i < N; i++) {
+    for (int j = 0; j < N; j++) {
+      for (int k = 0; k < N; k++) {
+        result[i][j] += a[i][k] * b[k][j];
+      }
+    }
+  }
+#endif
 }
 
 // Compute integer power of a given square matrix
