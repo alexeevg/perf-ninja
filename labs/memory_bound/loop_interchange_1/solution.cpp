@@ -35,14 +35,19 @@ void transpose(Matrix& result, const Matrix& input) {
 void multiply(Matrix &result, const Matrix &a, const Matrix &b) {
   zero(result);
 
+#ifdef SOLUTION
   static Matrix bT;
   transpose(bT, b);
+#endif
 
   for (int i = 0; i < N; i++) {
     for (int j = 0; j < N; j++) {
       for (int k = 0; k < N; k++) {
+#ifdef SOLUTION
         result[i][j] += a[i][k] * bT[j][k];
-        // result[i][j] += a[i][k] * b[k][j];
+#else
+        result[i][j] += a[i][k] * b[k][j];
+#endif
       }
     }
   }

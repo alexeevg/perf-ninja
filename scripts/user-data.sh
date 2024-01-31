@@ -20,4 +20,6 @@ cmake --build "build" --config Release
 #if you want to install the library globally, also run:
 cmake --build "build" --config Release --target install
 
+apt install python3-scipy -y 
+
 echo user-data successfully executed
