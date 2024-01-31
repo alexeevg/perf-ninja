@@ -22,6 +22,7 @@ void identity(Matrix &result) {
   }
 }
 
+#ifdef SOLUTION
 void transpose(Matrix& result, const Matrix& input) {
   for (int i = 0; i < N; i++) {
     for (int j = i; j < N; j++) {
@@ -30,6 +31,7 @@ void transpose(Matrix& result, const Matrix& input) {
     }
   }
 }
+#endif
 
 // Multiply two square matrices
 void multiply(Matrix &result, const Matrix &a, const Matrix &b) {
