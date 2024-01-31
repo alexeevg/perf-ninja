@@ -1,50 +1,49 @@
 optimized:
 
 root@perf-ninja:~/perf-ninja/labs/memory_bound/loop_interchange_1/build# /pmu-tools/toplev.py --core S0-C0 -l2 --no-desc taskset -c 0 ./lab 
-2024-01-31T12:48:27+00:00
+2024-01-31T12:55:01+00:00
 Running ./lab
 Run on (2 X 2693.67 MHz CPU s)
 CPU Caches:
   L1 Data 32 KiB (x2)
   L1 Instruction 32 KiB (x2)
   L2 Unified 4096 KiB (x2)
-Load Average: 0.07, 0.31, 0.32
+Load Average: 0.69, 0.34, 0.30
 ---------------------------------------------------------------
 Benchmark                     Time             CPU   Iterations
 ---------------------------------------------------------------
-bench1/iterations:10  166022656 ns    165898288 ns           10
+bench1/iterations:10  118709279 ns    118663778 ns           10
 # 4.7-full on Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz [skx/skylake]
-BE               Backend_Bound               % Slots                       81.7   [14.0%]<==
-BE/Mem           Backend_Bound.Memory_Bound  % Slots                       42.4   [14.0%]
-BE/Core          Backend_Bound.Core_Bound    % Slots                       39.3   [14.0%]
-MUX                                          %                             14.00 
-Run toplev --describe Backend_Bound^ to get more information on bottleneck
+BE               Backend_Bound              % Slots                       36.6   [14.0%]
+BE/Core          Backend_Bound.Core_Bound   % Slots                       22.6   [14.0%]<==
+RET              Retiring.Heavy_Operations  % Slots                       20.5   [14.0%]
+MUX                                         %                             14.00 
+Run toplev --describe Core_Bound^ to get more information on bottleneck
 Add --run-sample to find locations
-Add --nodes '!+Backend_Bound*/2,+MUX' for breakdown.
-
+Add --nodes '!+Core_Bound*/3,+Backend_Bound,+MUX' for breakdown.
 
 ==================================================================================================
 
 baseline:
 
 root@perf-ninja:~/perf-ninja/labs/memory_bound/loop_interchange_1/build# /pmu-tools/toplev.py --core S0-C0 -l2 --no-desc taskset -c 0 ./lab 
-2024-01-31T12:49:53+00:00
+\2024-01-31T12:53:59+00:00
 Running ./lab
 Run on (2 X 2693.67 MHz CPU s)
 CPU Caches:
   L1 Data 32 KiB (x2)
   L1 Instruction 32 KiB (x2)
   L2 Unified 4096 KiB (x2)
-Load Average: 0.46, 0.33, 0.32
+Load Average: 0.32, 0.24, 0.28
 ---------------------------------------------------------------
 Benchmark                     Time             CPU   Iterations
 ---------------------------------------------------------------
-bench1/iterations:10  875109923 ns    874631855 ns           10
+bench1/iterations:10  874964540 ns    873910755 ns           10
 # 4.7-full on Intel(R) Xeon(R) Platinum 8168 CPU @ 2.70GHz [skx/skylake]
-BE               Backend_Bound               % Slots                       60.1   [14.0%]<==
-BE/Mem           Backend_Bound.Memory_Bound  % Slots                       30.7   [14.0%]
-BE/Core          Backend_Bound.Core_Bound    % Slots                       29.4   [14.0%]
-RET              Retiring.Heavy_Operations   % Slots                       10.9   [14.0%]
+BE               Backend_Bound               % Slots                       60.4   [14.0%]<==
+BE/Mem           Backend_Bound.Memory_Bound  % Slots                       30.9   [14.0%]
+BE/Core          Backend_Bound.Core_Bound    % Slots                       29.5   [14.0%]
+RET              Retiring.Heavy_Operations   % Slots                       10.2   [14.0%]
 MUX                                          %                             14.00 
 Run toplev --describe Backend_Bound^ to get more information on bottleneck
 Add --run-sample to find locations
