@@ -11,14 +11,7 @@ static void filterVertically(uint8_t *output, const uint8_t *input,
                              const int *kernel, const int radius,
                              const int shift) {
   const int rounding = 1 << (shift - 1);
-  std::vector<int> dots(height * width);
-
-  for (int r = 0; r < height; ++r) {
-    for (int c = 0; c < width; ++ c) {
-      dots[r * width + c] = 0;
-    }
-  }
-
+  
   for (int c = 0; c < width; c++) {
     // Top part of line, partial kernel
     for (int r = 0; r < std::min(radius, height); r++) {
@@ -40,19 +33,22 @@ static void filterVertically(uint8_t *output, const uint8_t *input,
 
   // Middle part of computations with full kernel
   for (int r = radius; r < height - radius; r++) {
+    int dots[width];
+    for (int c = 0; c < width; ++ c) {
+      dots[c] = 0;
+    }
+
     // Accumulation
     for (int i = 0; i < radius + 1 + radius; i++) {
       for (int c = 0; c < width; c++) {
-        dots[r * width + c] += input[(r - radius + i) * width + c] * kernel[i];
+        dots[c] += input[(r - radius + i) * width + c] * kernel[i];
       }
     }
-  }
-
-  for (int r = radius; r < height - radius; r++) {
+  
     for (int c = 0; c < width; c++) {
       // Middle part of computations with full kernel
       // Fast shift instead of division
-      int value = (dots[r * width + c] + rounding) >> shift;
+      int value = (dots[c] + rounding) >> shift;
       output[r * width + c] = static_cast<uint8_t>(value);
     }
   }
