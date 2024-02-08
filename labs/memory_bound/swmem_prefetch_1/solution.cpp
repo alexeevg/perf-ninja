@@ -1,3 +1,4 @@
+#define REFERENCE_SOLUTION
 #include "solution.hpp"
 
 static int getSumOfDigits(int n) {
@@ -18,6 +19,14 @@ int solution(const hash_map_t *hash_map, const std::vector<int> &lookups) {
     int sum = getSumOfDigits(val);
     if (hash_map->find(val))
       result += sum;
+  }
+#elif defined(REFERENCE_SOLUTION)
+  constexpr int PREFETCH_DISTANCE = 16;
+  for (size_t i = 0; i < lookups.size(); i++) {
+    int val = lookups[i];
+    hash_map->prefetch(lookups[ std::min(i + PREFETCH_DISTANCE, lookups.size() - 1)]);
+    if (hash_map->find(val))
+      result += getSumOfDigits(val);
   }
 #else
   for (int val : lookups) {

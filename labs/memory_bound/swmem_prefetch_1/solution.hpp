@@ -25,7 +25,7 @@ public:
         return m_vector[bucket] != UNUSED;
     }
 
-    #ifdef SOLUTION
+    #if defined(SOLUTION) || defined(REFERENCE_SOLUTION)
     void prefetch(int val) const {
         int bucket = val % N_Buckets;
         __builtin_prefetch(&m_vector[bucket]);
