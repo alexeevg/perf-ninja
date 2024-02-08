@@ -21,7 +21,7 @@ int solution(const hash_map_t *hash_map, const std::vector<int> &lookups) {
       result += sum;
   }
 #elif defined(REFERENCE_SOLUTION)
-  constexpr int PREFETCH_DISTANCE = 16;
+  constexpr int PREFETCH_DISTANCE = 32;
   for (size_t i = 0; i < lookups.size(); i++) {
     int val = lookups[i];
     hash_map->prefetch(lookups[ std::min(i + PREFETCH_DISTANCE, lookups.size() - 1)]);
