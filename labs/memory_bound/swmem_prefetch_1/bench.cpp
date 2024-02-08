@@ -18,7 +18,7 @@ static void bench1(benchmark::State &state) {
 }
 
 // Register the function as a benchmark and measure time in microseconds
-BENCHMARK(bench1)->Unit(benchmark::kMillisecond)->Iterations(40);
+BENCHMARK(bench1)->Unit(benchmark::kMillisecond)->Iterations(50);
 
 // Run the benchmark
 BENCHMARK_MAIN();
