@@ -1,4 +1,3 @@
-#define REFERENCE_SOLUTION
 #include "solution.hpp"
 
 static int getSumOfDigits(int n) {
