@@ -149,6 +149,25 @@ inline bool setRequiredPrivileges() {
 
 #endif
 
+#ifdef SOLUTION
+#include <sys/mman.h>
+
+inline auto allocateDoublesArray(size_t size) {
+  void *p = mmap(NULL,
+    8*size,
+    PROT_READ | PROT_WRITE,
+    MAP_ANON | MAP_PRIVATE,
+    VM_FLAGS_SUPERPAGE_SIZE_ANY, // mach flags in fd argument
+    0);
+  if (p == MAP_FAILED) {
+    throw std::bad_alloc();
+  }
+  auto deleter = [size](double *ptr) { munmap(ptr, 8*size); };
+
+  return std::unique_ptr<double[], decltype(deleter)>((double*)p,
+                                                      std::move(deleter));  
+}
+#else
 // Allocate an array of doubles of size `size`, return it as a
 // std::unique_ptr<double[], D>, where `D` is a custom deleter type
 inline auto allocateDoublesArray(size_t size) {
@@ -168,3 +187,4 @@ inline auto allocateDoublesArray(size_t size) {
   // The more verbose version is meant to demonstrate the use of a custom
   // (potentially stateful) deleter
 }
+#endif
