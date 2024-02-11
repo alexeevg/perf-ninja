@@ -1,0 +1,19 @@
+Measured on DigitalOcean c-4 instance with 4 vCPUs (hyperthreads, probably 2 real cores) and 8GB of RAM.
+baseline:
+
+Apply matrix-free operator       10.4 s          10.4 s             1 bytes_per_second=140.965Mi/s
+
+========================================================================================================
+
+explicit huge pages (-DSOLUTION) with
+echo 512 > /proc/sys/vm/nr_hugepages:
+
+Apply matrix-free operator       6.29 s          6.29 s             1 bytes_per_second=232.75Mi/s
+
+========================================================================================================
+with THP
+echo always > /sys/kernel/mm/transparent_hugepage/enabled
+Apply matrix-free operator       6.45 s          6.45 s             1 bytes_per_second=226.941Mi/s
+
+with echo always > /sys/kernel/mm/transparent_hugepage/defrag
+Apply matrix-free operator       6.43 s          6.43 s             1 bytes_per_second=227.666Mi/s
