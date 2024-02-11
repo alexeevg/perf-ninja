@@ -3,13 +3,17 @@
 #include "benchmark/benchmark.h"
 #include "solution.hpp"
 
+#include <iostream>
+
 static void bench1(benchmark::State &state) {
   try {
     // Mesh
     constexpr unsigned n_nodes_x = 800, n_nodes_y = 20000,
                        n_nodes = n_nodes_x * n_nodes_y;
     constexpr unsigned seed = 0xaf173e8au;
+    std::cerr << "allocating x_alloc\n";
     const auto x_alloc = allocateDoublesArray(n_nodes);
+    std::cerr << "allocating y_alloc\n";
     const auto y_alloc = allocateDoublesArray(n_nodes);
     const auto topology =
         generateMesh(n_nodes_x, n_nodes_y, x_alloc.get(), y_alloc.get(), seed);
@@ -17,6 +21,7 @@ static void bench1(benchmark::State &state) {
     const double *y = y_alloc.get();
 
     // Generate random left-hand side
+    std::cerr << "allocating lhs_alloc\n";
     const auto lhs_alloc = allocateDoublesArray(2 * n_nodes);
     double *lhs = lhs_alloc.get();
     std::mt19937 prng{std::random_device{}()};
