@@ -27,3 +27,8 @@ For the convenience of your solution, all such allocations are done using the `a
 In fact, this is the only place of the code which is modified in the suggested solution.
 
 Authored-by: @kubagalecki
+
+## More links
+
+https://alexandrnikitin.github.io/blog/transparent-hugepages-measuring-the-performance-impact/
+https://rigtorp.se/hugepages/
