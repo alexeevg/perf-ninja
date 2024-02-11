@@ -11,7 +11,7 @@ static void compute_alignment(benchmark::State &state) {
 }
 
 // Register the functions as a benchmark
-BENCHMARK(compute_alignment);
+BENCHMARK(compute_alignment)->Unit(benchmark::kMicrosecond);
 
 // Run the benchmark
 BENCHMARK_MAIN();
