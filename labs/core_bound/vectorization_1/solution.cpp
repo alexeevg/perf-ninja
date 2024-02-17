@@ -51,18 +51,17 @@ result_t compute_alignment(std::vector<sequence_t> const &sequences1,
      * Compute the main recursion to fill the matrix.
      */
     for (unsigned col = 1; col <= sequence2.size(); ++col) {
-      column_t matches{};
-
-      for (unsigned row = 1; row <= sequence1.size(); ++row) {
-        matches[row] = (sequence1[row - 1] == sequence2[col - 1] ? match : mismatch);
-      }
-
       score_t last_diagonal_score =
           score_column[0]; // Cache last diagonal score to compute this cell.
       score_column[0] = horizontal_gap_column[0];
       last_vertical_gap = horizontal_gap_column[0] + gap_open;
       horizontal_gap_column[0] += gap_extension;
 
+      column_t matches{};
+
+      for (unsigned row = 1; row <= sequence1.size(); ++row) {
+        matches[row] = (sequence1[row - 1] == sequence2[col - 1] ? match : mismatch);
+      }
 
       for (unsigned row = 1; row <= sequence1.size(); ++row) {
         // Compute next score from diagonal direction with match/mismatch.
