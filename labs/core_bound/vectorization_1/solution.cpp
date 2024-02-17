@@ -63,8 +63,9 @@ result_t compute_alignment(std::vector<sequence_t> const &sequences1,
 
   for (size_t i = 1; i < score_column.size(); ++i)
   {
-    score_column[i] = last_vertical_gap;
+    
     for (size_t k = 0; k < sequence_count_v; ++k) {
+      score_column[i][k] = last_vertical_gap[k];
       horizontal_gap_column[i][k] = last_vertical_gap[k] + gap_open[k];
       last_vertical_gap[k] += gap_extension[k];
     }
@@ -91,9 +92,8 @@ result_t compute_alignment(std::vector<sequence_t> const &sequences1,
       for (size_t k = 0; k < sequence_count_v; ++k) {
           best_cell_score[k] = last_diagonal_score[k] +
             (transposed_sequences1[row - 1][k] == transposed_sequences2[col - 1][k] ? match[k] : mismatch[k]);
-      //}
-      
-      //for (size_t k = 0; k < sequence_count_v; ++k) {
+      }      
+      for (size_t k = 0; k < sequence_count_v; ++k) {
         // Determine best score from diagonal, vertical, or horizontal
         // direction.
         best_cell_score[k] = std::max(best_cell_score[k], last_vertical_gap[k]);
