@@ -8,3 +8,5 @@ Since many bioinformatic problems start with the alignment of millions of short 
 
 
 Author: @rrahn.
+
+UPDATE: solution from the video can be significantly sped-up by a small change, see https://github.com/alexeevg/perf-ninja/issues/1
