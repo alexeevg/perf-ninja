@@ -12,17 +12,19 @@ uint16_t original_checksum(const Blob &blob) {
 }
 
 int main() {
-  // Init benchmark data
-  Blob blob;
-  init(blob);
+  for (int i = 0; i < 10; i++) {
+    // Init benchmark data
+    Blob blob;
+    init(blob);
 
-  auto original_result = original_checksum(blob);
-  auto result = checksum(blob);
+    auto original_result = original_checksum(blob);
+    auto result = checksum(blob);
 
-  if (original_result != result) {
-    std::cerr << "Validation Failed. Original result = " << original_result
-              << "; Modified version returned = " << result << "\n";
-    return 1;
+    if (original_result != result) {
+      std::cerr << "Validation Failed. Original result = " << original_result
+                << "; Modified version returned = " << result << "\n";
+      return 1;
+    }
   }
 
   std::cout << "Validation Successful" << std::endl;
