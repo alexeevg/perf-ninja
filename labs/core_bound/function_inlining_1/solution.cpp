@@ -3,10 +3,7 @@
 #include <algorithm>
 #include <stdlib.h>
 
-static int compare(const void *lhs, const void *rhs) {
-  auto &a = *reinterpret_cast<const S *>(lhs);
-  auto &b = *reinterpret_cast<const S *>(rhs);
-
+static int compare(const S& a, const S& b) {
   if (a.key1 < b.key1)
     return -1;
 
@@ -22,6 +19,10 @@ static int compare(const void *lhs, const void *rhs) {
   return 0;
 }
 
+bool adaptedCompare(const S& a, const S& b) {
+  return compare(a, b) < 0;
+}
+
 void solution(std::array<S, N> &arr) {
-  qsort(arr.data(), arr.size(), sizeof(S), compare);
+  std::sort(arr.begin(), arr.end(), adaptedCompare);
 }
