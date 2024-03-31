@@ -25,11 +25,32 @@ unsigned solution(List *l1, List *l2) {
 
   List *head2 = l2;
   // O(N^2) algorithm:
+  while (l1 && l1->next) {
+    unsigned v = l1->value;
+    unsigned v2 = l1->next->value;
+
+    l2 = head2;
+    unsigned found = 0;
+    while (l2) {
+      if (l2->value == v || l2->value == v2) {
+        retVal += getSumOfDigits(l2->value);
+        found++;  
+      }
+      if (found == 2) {
+        break;
+      }
+      l2 = l2->next;
+    }
+    l1 = l1->next->next;
+  }
+  
   while (l1) {
     unsigned v = l1->value;
+
     l2 = head2;
     while (l2) {
       if (l2->value == v) {
+        std::cerr << "modified found " << l2->value << std::endl;
         retVal += getSumOfDigits(v);
         break;
       }
