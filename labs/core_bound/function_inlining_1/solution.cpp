@@ -19,7 +19,7 @@ static int compare(const S& a, const S& b) {
   return 0;
 }
 
-bool adaptedCompare(const S& a, const S& b) {
+inline bool adaptedCompare(const S& a, const S& b) {
   return compare(a, b) < 0;
 }
 
